@@ -10,16 +10,16 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/* Swing Imports */
+/* Swing Imports (GUI) */
 import javax.swing.JPanel;
 
 
 
-// Game Panel Class
+/* Game Panel Class */
 public class GamePanel extends JPanel implements MouseListener {
 	/* Private Variables */
 	private static final long serialVersionUID = 1L;
-	private GameLogic logic                    = GameLogic.getInstance();
+	private final GameLogic logic              = GameLogic.getInstance();
 	
 	
 	
@@ -98,14 +98,14 @@ public class GamePanel extends JPanel implements MouseListener {
 	
 	/* Mouse Event Methods */
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) { // Mouse button click event for hitting within one of the 100 squares
 		byte x = (byte) (e.getX() / 50);
 		byte y = (byte) (e.getY() / 50);
 		
-		if (x < 1 || y < 1 || x > 10 || y > 10)
+		if (x < 1 || y < 1 || x > 10 || y > 10) // Confirm the mouse click was within a square
 			return;
 		
-		if (!logic.isGameStarted()) {
+		if (!logic.isGameStarted()) { // Event for when the game hasn't started yet, for either placing a ship part, making the ship or removing ship parts
 			switch (e.getButton() ) {
 				case MouseEvent.BUTTON1:
 					if (logic.isTemp(x, y))
@@ -117,7 +117,7 @@ public class GamePanel extends JPanel implements MouseListener {
 					break;
 			}
 		}
-		else {
+		else { // Event for when the game started, which is allowing for hitting a spot
 			if (e.getButton() == MouseEvent.BUTTON1)
 				logic.hitSpot(x, y);
 		}
@@ -125,9 +125,9 @@ public class GamePanel extends JPanel implements MouseListener {
 		repaint();
 	}
 	
+	// Mouse Button events which aren't used, but still required to include
 	@Override public void mouseClicked( MouseEvent e)   { }
 	@Override public void mouseReleased(MouseEvent e)   { }
 	@Override public void mouseEntered( MouseEvent e)   { }
 	@Override public void mouseExited(  MouseEvent e)   { }
-	
 }

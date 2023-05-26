@@ -2,7 +2,7 @@ package battleShipGame;
 
 
 
-// Java Imports
+/* Java Imports */
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,27 +12,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
-// Swing Imports
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+/* Swing Imports (GUI) */
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 
 
-// GUI Window Class
+/* GUI Window Class */
 public class GameWindow extends JFrame {
 	/* Private Variables */
 	private static final long serialVersionUID = 1L;
-	private GameLogic     logic                = GameLogic.getInstance();
+	private final GameLogic     logic          = GameLogic.getInstance();
 	
-	private GamePanel gamePanel                = new GamePanel();
-	private JPanel    uiPanel                  = new JPanel();
+	private final GamePanel gamePanel          = new GamePanel();
+	private final JPanel    uiPanel            = new JPanel();
 	
 	
 	
@@ -54,34 +52,26 @@ public class GameWindow extends JFrame {
 		setButton(uiPanel, logic.getRestartButton(), 100, 40, Color.BLACK, null);
 		setButton(uiPanel, logic.getExitButton(),    100, 40, Color.BLACK, null);
 		
-		// Scores and names
+		// Add score labels to the GUI
 		for (JLabel label : logic.getScoreLabels())
 			setLabel(uiPanel, label, 200, 20, Color.BLACK);
 		
 		// Set event for keyboard buttons
 		addKeyListener(new KeyListener() {
-			@Override public void keyPressed(KeyEvent e) {
-				if      (e.getKeyCode() == KeyEvent.VK_ENTER)    { endTurn();           }
-				else if (e.getKeyCode() == KeyEvent.VK_SPACE)    { restart();           }
-				else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)   { dispose();           }
-				else if (e.getKeyCode() == KeyEvent.VK_F5)       { prepareTestSetup1(); }
-				else if (e.getKeyCode() == KeyEvent.VK_F6)       { prepareTestSetup2(); }
-				else if (e.getKeyCode() == KeyEvent.VK_F7)       { prepareTestSetup3(); }
-				else if (e.getKeyCode() == KeyEvent.VK_F8)       { prepareTestSetup4(); }
+			@Override public void keyPressed(KeyEvent e) { // Keyboard button functions to be called
+				if      (e.getKeyCode() == KeyEvent.VK_ENTER)    { endTurn();           } // Enter
+				else if (e.getKeyCode() == KeyEvent.VK_SPACE)    { restart();           } // Space
+				else if (e.getKeyCode() == KeyEvent.VK_ESCAPE)   { dispose();           } // Escape
+				else if (e.getKeyCode() == KeyEvent.VK_F5)       { prepareTestSetup1(); } // F5
+				else if (e.getKeyCode() == KeyEvent.VK_F6)       { prepareTestSetup2(); } // F6
+				else if (e.getKeyCode() == KeyEvent.VK_F7)       { prepareTestSetup3(); } // F7
+				else if (e.getKeyCode() == KeyEvent.VK_F8)       { prepareTestSetup4(); } // F8
 			}
+			
+			// Keyboard Button events which aren't used, but still required to include
 			@Override public void keyTyped(   KeyEvent e)   { }
 			@Override public void keyReleased(KeyEvent e)   { }
 		});
-		
-		addWindowListener (new WindowListener() {
-			@Override public void windowOpened(WindowEvent e)        { }
-			@Override public void windowClosing(WindowEvent e)       { }
-			@Override public void windowClosed(WindowEvent e)        { }
-			@Override public void windowIconified(WindowEvent e)     { }
-			@Override public void windowDeiconified(WindowEvent e)   { }
-			@Override public void windowActivated(WindowEvent e)     { }
-			@Override public void windowDeactivated(WindowEvent e)   { }
-	    });
 		
 		// Set event for buttons
 		logic.getEndTurnButton().addActionListener(new ActionListener()   { @Override public void actionPerformed(ActionEvent e) { endTurn(); } });
@@ -101,24 +91,25 @@ public class GameWindow extends JFrame {
 	
 	
 	/* Public Methods */
-	public JFrame getWindow() { return this; }
-	
-	public String askName() {
+	public String askName() { // Ask for a name
 		String name = JOptionPane.showInputDialog(this, "Name:", null);
 		return name;
 	}
 	
-	private void endTurn() {
+	
+	
+	/* Private Methods */
+	private void endTurn() { // End Turn button for ending the turn and refreshing the GUI
 		logic.switchPlayer();
         repaint();
 	}
 	
-	private void restart() {
+	private void restart() { // Restart button for restarting the game and refreshing the GUI
 		logic.resetGame();
         repaint();
 	}
 	
-	private void setButton(JPanel panel, JButton button, int width, int height, Color fore, Color back) {
+	private void setButton(JPanel panel, JButton button, int width, int height, Color fore, Color back) { // Add a new button to a panel
 		panel.add(button);
 		button.setSize(width, height);
 		button.setFocusable(false);
@@ -127,7 +118,7 @@ public class GameWindow extends JFrame {
         	button.setBackground(back);
     }
 	
-	private void setLabel(JPanel panel, JLabel label, int width, int size, Color color) {
+	private void setLabel(JPanel panel, JLabel label, int width, int size, Color color) { // Add a new text label to a panel
 		panel.add(label);
 		label.setPreferredSize(new Dimension(width, 10));
 		label.setFont(new Font("Verdana", Font.PLAIN, size));
@@ -135,13 +126,15 @@ public class GameWindow extends JFrame {
 		label.setForeground(color);
     }
 	
+	
+	
 	/* Private Methods (Testing) */
-	private void prepareTestSetup4() {
+	private void prepareTestSetup4() { // Testing function to reset all scores
 		System.out.println("Testing deleting highscores");
 		logic.clearScores();
 	}
 	
-	private void prepareTestSetup3() {
+	private void prepareTestSetup3() { // Testing function to preset the score list
 		System.out.println("Testing adding highscores");
 		
 		logic.clearScores();
@@ -157,90 +150,67 @@ public class GameWindow extends JFrame {
 		logic.setScore("Anders", 40);
 	}
 	
-	private void prepareTestSetup2() {
+	private void prepareTestSetup2() { // Testing function for instantly winning the game
 		System.out.println("Testing winning the game");
 		
 		prepareTestSetup1();
 		
 		for (byte x=1; x<=10; x++)
 			for (byte y=1; y<=10; y++)
-				for (byte player=1; player<=2; player++) {
-					logic.hitSpot(x, y, player);
+				for (byte i=0; i<2; i++) {
+					logic.hitSpot(x, y);
 					logic.switchPlayer();
 				}
 		repaint();
 	}
 	
-	private void prepareTestSetup1() {
+	private void prepareTestSetup1() { // Testing function for setting up game ready to be played
 		System.out.println("Testing setting up the game");
 		
 		logic.resetGame();
 		
-		logic.placeShip(1,  1,  1);
-		logic.placeShip(2,  1,  1);
-		logic.makeShip(1);
-		logic.switchPlayer();
+		for (byte i=0; i<2; i++) {
+			logic.placeShip(1, 1);
+			logic.placeShip(2, 1);
+			logic.makeShip();
+			logic.switchPlayer();
+		}
 		
-		logic.placeShip(1,  1,  2);
-		logic.placeShip(2,  1,  2);
-		logic.makeShip(2);
-		logic.switchPlayer();
+		for (byte i=0; i<2; i++) {
+			logic.placeShip(2, 3);
+			logic.placeShip(3, 3);
+			logic.placeShip(4, 3);
+			logic.makeShip();
+			logic.switchPlayer();
+		}
 		
-		logic.placeShip(2,  3,  1);
-		logic.placeShip(3,  3,  1);
-		logic.placeShip(4,  3,  1);
-		logic.makeShip(1);
-		logic.switchPlayer();
+		for (byte i=0; i<2; i++) {
+			logic.placeShip(5, 6);
+			logic.placeShip(6, 6);
+			logic.placeShip(7, 6);
+			logic.makeShip();
+			logic.switchPlayer();
+		}
 		
-		logic.placeShip(2,  3,  2);
-		logic.placeShip(3,  3,  2);
-		logic.placeShip(4,  3,  2);
-		logic.makeShip(2);
-		logic.switchPlayer();
+		for (byte i=0; i<2; i++) {
+			logic.placeShip(1, 8);
+			logic.placeShip(2, 8);
+			logic.placeShip(3, 8);
+			logic.placeShip(4, 8);
+			logic.makeShip();
+			logic.switchPlayer();
+		}
 		
-		logic.placeShip(5,  6,  1);
-		logic.placeShip(6,  6,  1);
-		logic.placeShip(7,  6,  1);
-		logic.makeShip(1);
-		logic.switchPlayer();
-		
-		logic.placeShip(5,  6,  2);
-		logic.placeShip(6,  6,  2);
-		logic.placeShip(7,  6,  2);
-		logic.makeShip(2);
-		logic.switchPlayer();
-		
-		logic.placeShip(1,  8,  1);
-		logic.placeShip(2,  8,  1);
-		logic.placeShip(3,  8,  1);
-		logic.placeShip(4,  8,  1);
-		logic.makeShip(1);
-		logic.switchPlayer();
-		
-		logic.placeShip(1,  8,  2);
-		logic.placeShip(2,  8,  2);
-		logic.placeShip(3,  8,  2);
-		logic.placeShip(4,  8,  2);
-		logic.makeShip(2);
-		logic.switchPlayer();
-		
-		logic.placeShip(10, 10, 1);
-		logic.placeShip(10, 9,  1);
-		logic.placeShip(10, 8,  1);
-		logic.placeShip(10, 7,  1);
-		logic.placeShip(10, 6,  1);
-		logic.makeShip(1);
-		logic.switchPlayer();
-		
-		logic.placeShip(10, 10, 2);
-		logic.placeShip(10, 9,  2);
-		logic.placeShip(10, 8,  2);
-		logic.placeShip(10, 7,  2);
-		logic.placeShip(10, 6,  2);
-		logic.makeShip(2);
-		logic.switchPlayer();
+		for (byte i=0; i<2; i++) {
+			logic.placeShip(10, 10);
+			logic.placeShip(10, 9);
+			logic.placeShip(10, 8);
+			logic.placeShip(10, 7);
+			logic.placeShip(10, 6);
+			logic.makeShip();
+			logic.switchPlayer();
+		}
 		
 		repaint();
 	}
-	
 }
