@@ -27,39 +27,39 @@ class BattleShipTest extends TestCase {
 	
 	private void placeShips() { // Quick method to fill the grid with ships for both players
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(1, 1);
-			logic.placeShip(2, 1);
+			logic.placePart(1, 1);
+			logic.placePart(2, 1);
 			makeShipAndEndTurn();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(2, 3);
-			logic.placeShip(3, 3);
-			logic.placeShip(4, 3);
+			logic.placePart(2, 3);
+			logic.placePart(3, 3);
+			logic.placePart(4, 3);
 			makeShipAndEndTurn();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(5, 6);
-			logic.placeShip(6, 6);
-			logic.placeShip(7, 6);
+			logic.placePart(5, 6);
+			logic.placePart(6, 6);
+			logic.placePart(7, 6);
 			makeShipAndEndTurn();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(1, 8);
-			logic.placeShip(2, 8);
-			logic.placeShip(3, 8);
-			logic.placeShip(4, 8);
+			logic.placePart(1, 8);
+			logic.placePart(2, 8);
+			logic.placePart(3, 8);
+			logic.placePart(4, 8);
 			makeShipAndEndTurn();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(10, 10);
-			logic.placeShip(10, 9);
-			logic.placeShip(10, 8);
-			logic.placeShip(10, 7);
-			logic.placeShip(10, 6);
+			logic.placePart(10, 10);
+			logic.placePart(10, 9);
+			logic.placePart(10, 8);
+			logic.placePart(10, 7);
+			logic.placePart(10, 6);
 			makeShipAndEndTurn();
 		}
 	}
@@ -205,8 +205,8 @@ class BattleShipTest extends TestCase {
 		assertNotEquals(logic.getOtherPlayer(), 1);
 		
 		// Do action, then switch player
-		logic.placeShip(1, 1);
-		logic.placeShip(1, 2);
+		logic.placePart(1, 1);
+		logic.placePart(1, 2);
 		makeShipAndEndTurn();
 		
 		// Player is switched now
@@ -220,14 +220,14 @@ class BattleShipTest extends TestCase {
 		assertEquals(logic.getShipsTotal(), 0);
 		
 		// Place ship
-		logic.placeShip(1, 1);
-		logic.placeShip(2, 1);
-		logic.placeShip(4, 1);
+		logic.placePart(1, 1);
+		logic.placePart(2, 1);
+		logic.placePart(4, 1);
 		
 		// Confirm placements are placed
-		assertTrue( logic.isTemp(1, 1));
-		assertTrue( logic.isTemp(2, 1));
-		assertFalse(logic.isTemp(4, 1));
+		assertTrue( logic.isPart(1, 1));
+		assertTrue( logic.isPart(2, 1));
+		assertFalse(logic.isPart(4, 1));
 		
 		// Make the ship
 		logic.makeShip();
@@ -247,8 +247,8 @@ class BattleShipTest extends TestCase {
 		assertEquals(logic.getShipsTotal(), 0);
 		
 		// Place and make ship
-		logic.placeShip(1, 1);
-		logic.placeShip(2, 1);
+		logic.placePart(1, 1);
+		logic.placePart(2, 1);
 		logic.makeShip();
 		
 		// Confirm ship is placed by having a total count of 1
@@ -257,18 +257,18 @@ class BattleShipTest extends TestCase {
 		assertEquals(logic.getShipsTotal(), 1);
 		
 		// Place and make the ship again
-		logic.placeShip(1, 1);
-		logic.placeShip(2, 1);
+		logic.placePart(1, 1);
+		logic.placePart(2, 1);
 		logic.makeShip();
 		
 		// Confirm ship count hasn't been changed
 		assertEquals(logic.getShipsTotal(), 1);
 		
 		// Place and make the ship once more, but at a different location
-		logic.placeShip(3, 1);
-		logic.placeShip(4, 1);
-		logic.placeShip(6, 1); // Invalid
-		logic.placeShip(4, 2); // Invalid
+		logic.placePart(3, 1);
+		logic.placePart(4, 1);
+		logic.placePart(6, 1); // Invalid
+		logic.placePart(4, 2); // Invalid
 		logic.makeShip(); // Ship can't be made because a) The third and fourth spots aren't valid, b) Size of 2 is already placed
 		
 		// Confirm ship count hasn't been changed

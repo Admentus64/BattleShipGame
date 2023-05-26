@@ -170,43 +170,43 @@ public class GameWindow extends JFrame {
 		logic.resetGame();
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(1, 1);
-			logic.placeShip(2, 1);
+			logic.placePart(1, 1);
+			logic.placePart(2, 1);
 			logic.makeShip();
 			logic.switchPlayer();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(2, 3);
-			logic.placeShip(3, 3);
-			logic.placeShip(4, 3);
+			logic.placePart(2, 3);
+			logic.placePart(3, 3);
+			logic.placePart(4, 3);
 			logic.makeShip();
 			logic.switchPlayer();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(5, 6);
-			logic.placeShip(6, 6);
-			logic.placeShip(7, 6);
+			logic.placePart(5, 6);
+			logic.placePart(6, 6);
+			logic.placePart(7, 6);
 			logic.makeShip();
 			logic.switchPlayer();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(1, 8);
-			logic.placeShip(2, 8);
-			logic.placeShip(3, 8);
-			logic.placeShip(4, 8);
+			logic.placePart(1, 8);
+			logic.placePart(2, 8);
+			logic.placePart(3, 8);
+			logic.placePart(4, 8);
 			logic.makeShip();
 			logic.switchPlayer();
 		}
 		
 		for (byte i=0; i<2; i++) {
-			logic.placeShip(10, 10);
-			logic.placeShip(10, 9);
-			logic.placeShip(10, 8);
-			logic.placeShip(10, 7);
-			logic.placeShip(10, 6);
+			logic.placePart(10, 10);
+			logic.placePart(10, 9);
+			logic.placePart(10, 8);
+			logic.placePart(10, 7);
+			logic.placePart(10, 6);
 			logic.makeShip();
 			logic.switchPlayer();
 		}

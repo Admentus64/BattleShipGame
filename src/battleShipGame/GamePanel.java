@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements MouseListener {
         				g.fillRect(50*x+8, 50*y+9, 35, 35);
     				}
     			}
-    			else if (logic.isTemp(x, y)) { // Draw temporary placements
+    			else if (logic.isPart(x, y)) { // Draw temporary placements
     				g.setColor(Color.green);
     				g.fillRect(50*x+2, 50*y+3, 48, 48);
     			}
@@ -108,12 +108,12 @@ public class GamePanel extends JPanel implements MouseListener {
 		if (!logic.isGameStarted()) { // Event for when the game hasn't started yet, for either placing a ship part, making the ship or removing ship parts
 			switch (e.getButton() ) {
 				case MouseEvent.BUTTON1:
-					if (logic.isTemp(x, y))
+					if (logic.isPart(x, y))
 						logic.makeShip();
-					else logic.placeShip(x, y);
+					else logic.placePart(x, y);
 					break;
 				case MouseEvent.BUTTON3:
-					logic.removeTemp(x, y);
+					logic.removePart(x, y);
 					break;
 			}
 		}
